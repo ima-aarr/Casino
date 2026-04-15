@@ -9,8 +9,12 @@
 <body>
 <div class="container">
     <header class="header-info">
-        <span>所持金: $<span id="moneyDisplay">1000</span></span>
+        <span>💰 $<span id="moneyDisplay">1000</span></span>
+        <span style="font-size: 18px; color: #b0bec5;">
+            <span id="rankDisplay">🥉ブロンズ</span> (Lv.<span id="levelDisplay">1</span>)
+        </span>
     </header>
+    
     <main id="appContent">
         <div id="menuScreen" class="screen active">
             <div class="menu-grid">
@@ -18,16 +22,17 @@
                 <button id="btnNavRoulette" class="menu-btn">ルーレット (3D)</button>
                 <button id="btnNavSlot" class="menu-btn">スロットマシン (3D)</button>
                 <button id="btnNavHighLow" class="menu-btn">ハイ＆ロー (3D)</button>
+                <button id="btnNavDice" class="menu-btn">🎲 ダイス</button>
             </div>
             <div class="save-section">
                 <button id="btnGenerateSave">セーブデータ作成</button>
-                <textarea id="saveDataInput"></textarea>
+                <textarea id="saveDataInput" placeholder="ここにセーブデータが表示・入力されます"></textarea>
                 <button id="btnLoadSave">セーブデータ読込</button>
             </div>
         </div>
 
         <div id="blackjackScreen" class="screen">
-            <button class="btn-back">戻る</button>
+            <button class="btn-back">◀ メニューに戻る</button>
             <div class="game-container">
                 <div id="bjBetControls" class="controls">
                     <input type="number" id="bjBetAmount" value="100" min="1">
@@ -53,7 +58,7 @@
         </div>
 
         <div id="rouletteScreen" class="screen">
-            <button class="btn-back">戻る</button>
+            <button class="btn-back">◀ メニューに戻る</button>
             <div class="game-container">
                 <div class="roulette-wrapper">
                     <div class="roulette-arrow"></div>
@@ -76,7 +81,7 @@
         </div>
 
         <div id="slotScreen" class="screen">
-            <button class="btn-back">戻る</button>
+            <button class="btn-back">◀ メニューに戻る</button>
             <div class="game-container">
                 <div class="slot-machine-3d">
                     <div class="reel-container"><div class="reel" id="reel0"></div></div>
@@ -92,7 +97,7 @@
         </div>
 
         <div id="highlowScreen" class="screen">
-            <button class="btn-back">戻る</button>
+            <button class="btn-back">◀ メニューに戻る</button>
             <div class="game-container">
                 <div id="hlBetControls" class="controls">
                     <input type="number" id="hlBetAmount" value="100" min="1">
@@ -112,6 +117,34 @@
                 </div>
             </div>
         </div>
+
+        <div id="diceScreen" class="screen">
+            <button class="btn-back">◀ メニューに戻る</button>
+            <div class="game-container">
+                <h2>🎲 ダイスロール</h2>
+                <p>2つのサイコロの合計を予想しよう！</p>
+                
+                <div class="card-area-wrapper">
+                    <div id="diceDisplay" style="font-size: 80px; letter-spacing: 20px; margin: 20px 0;">❓ ❓</div>
+                </div>
+
+                <div class="controls">
+                    <label>ベット額: $<input type="number" id="diceBetAmount" value="10" min="1"></label>
+                    <br>
+                    <label style="display: block; margin-top: 10px;">予想: 
+                        <select id="diceBetType">
+                            <option value="low">Low (2〜6) [配当: x2]</option>
+                            <option value="high">High (8〜12) [配当: x2]</option>
+                            <option value="seven">Lucky 7 [配当: x5]</option>
+                        </select>
+                    </label>
+                    <br>
+                    <button id="btnDiceRoll" style="margin-top: 15px;">サイコロを振る！</button>
+                </div>
+                <div id="diceResult" class="result-msg"></div>
+            </div>
+        </div>
+
     </main>
 </div>
 <script type="module" src="js/app.js"></script>
