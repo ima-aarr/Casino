@@ -2,414 +2,118 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>Web Casino Ultra Real</title>
-<style>
-body {
-    background-color: #082d18;
-    color: #ffffff;
-    font-family: sans-serif;
-    text-align: center;
-    margin: 0;
-    padding: 20px;
-}
-.container {
-    max-width: 800px;
-    margin: 0 auto;
-    background-color: #104225;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-}
-button {
-    padding: 12px 24px;
-    margin: 5px;
-    cursor: pointer;
-    border-radius: 6px;
-    border: none;
-    background: linear-gradient(180deg, #f1c40f, #d4af37);
-    color: #000;
-    font-weight: bold;
-    font-size: 16px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-    transition: 0.2s;
-}
-button:hover {
-    background: linear-gradient(180deg, #f9e79f, #f1c40f);
-    transform: translateY(-2px);
-}
-button:disabled {
-    background: #555;
-    color: #888;
-    cursor: not-allowed;
-    transform: translateY(0);
-    box-shadow: none;
-}
-input, select, textarea {
-    padding: 8px;
-    margin: 5px;
-    border-radius: 4px;
-    border: 1px solid #222;
-    font-size: 16px;
-    background-color: #fff;
-    color: #000;
-}
-.screen { display: none; }
-.screen.active { display: block; }
-.header-info {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid #d4af37;
-}
-.controls { margin-top: 20px; padding: 15px; background: rgba(0,0,0,0.3); border-radius: 8px; }
-.result-msg { font-size: 22px; font-weight: bold; color: #f1c40f; margin: 20px 0; min-height: 30px; text-shadow: 1px 1px 3px rgba(0,0,0,0.8);}
-.menu-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-    margin-bottom: 30px;
-}
-.slot-machine-3d {
-    display: flex;
-    gap: 15px;
-    justify-content: center;
-    perspective: 1000px;
-    background: linear-gradient(to bottom, #333, #111);
-    padding: 40px 20px;
-    border-radius: 15px;
-    border: 8px solid #555;
-    box-shadow: inset 0 20px 50px rgba(0,0,0,0.9), 0 10px 20px rgba(0,0,0,0.6);
-    margin: 20px auto;
-    width: fit-content;
-}
-.reel-container {
-    width: 120px;
-    height: 140px;
-    position: relative;
-    border-radius: 10px;
-    border: 2px solid #000;
-    background: #fff;
-    box-shadow: inset 0 30px 30px -10px rgba(0,0,0,0.8), inset 0 -30px 30px -10px rgba(0,0,0,0.8);
-    overflow: hidden;
-}
-.reel {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    transform-style: preserve-3d;
-}
-.symbol {
-    position: absolute;
-    width: 100%;
-    height: 80px;
-    top: 30px;
-    left: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 55px;
-    background: linear-gradient(180deg, #ffffff, #e0e0e0);
-    border-top: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
-    backface-visibility: hidden;
-}
-.hl-board {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    margin: 30px 0;
-    perspective: 1000px;
-}
-.card-3d-container {
-    width: 140px;
-    height: 200px;
-    position: relative;
-}
-.card-3d {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    transform-style: preserve-3d;
-    transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    transform: rotateY(180deg) translateY(-20px);
-    opacity: 0;
-}
-.card-3d.dealt {
-    transform: rotateY(180deg) translateY(0);
-    opacity: 1;
-}
-.card-3d.flipped {
-    transform: rotateY(0deg) translateY(0);
-    opacity: 1;
-}
-.card-face {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
-    border-radius: 10px;
-    box-shadow: 2px 5px 15px rgba(0,0,0,0.5);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 10px;
-    box-sizing: border-box;
-    background-color: white;
-}
-.card-back {
-    transform: rotateY(180deg);
-    background: repeating-linear-gradient(45deg, #1a237e, #1a237e 10px, #283593 10px, #283593 20px);
-    border: 8px solid white;
-}
-.card-face.red { color: #d32f2f; }
-.card-face.black { color: #212121; }
-.card-top { text-align: left; font-size: 24px; line-height: 1; font-weight: bold; }
-.card-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 50px; }
-.card-bottom { text-align: right; font-size: 24px; line-height: 1; transform: rotate(180deg); font-weight: bold; }
-.hl-label { font-size: 18px; margin-bottom: 10px; color: #d4af37; font-weight: bold; }
-</style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Web Casino Enterprise</title>
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
 <div class="container">
-    <div class="header-info">
-        所持金: $<span id="moneyDisplay">1000</span>
-    </div>
+    <header class="header-info">
+        <span>所持金: $<span id="moneyDisplay">1000</span></span>
+    </header>
+    <main id="appContent">
+        <div id="menuScreen" class="screen active">
+            <div class="menu-grid">
+                <button id="btnNavBlackjack" class="menu-btn">ブラックジャック</button>
+                <button id="btnNavRoulette" class="menu-btn">ルーレット (3D)</button>
+                <button id="btnNavSlot" class="menu-btn">スロットマシン (3D)</button>
+                <button id="btnNavHighLow" class="menu-btn">ハイ＆ロー (3D)</button>
+            </div>
+            <div class="save-section">
+                <button id="btnGenerateSave">セーブデータ作成</button>
+                <textarea id="saveDataInput"></textarea>
+                <button id="btnLoadSave">セーブデータ読込</button>
+            </div>
+        </div>
 
-    <div id="menuScreen" class="screen active">
-        <div class="menu-grid">
-            <button onclick="switchScreen('slotScreen')">リアルスロット</button>
-            <button onclick="switchScreen('highlowScreen')">3Dハイ＆ロー</button>
-        </div>
-    </div>
-
-    <div id="slotScreen" class="screen">
-        <button onclick="switchScreen('menuScreen')" style="float:left;">戻る</button>
-        <h2>リアルスロット</h2>
-        
-        <div class="slot-machine-3d">
-            <div class="reel-container"><div class="reel" id="reel0"></div></div>
-            <div class="reel-container"><div class="reel" id="reel1"></div></div>
-            <div class="reel-container"><div class="reel" id="reel2"></div></div>
-        </div>
-        
-        <div class="controls">
-            ベット: <input type="number" id="slotBetAmount" value="50" min="1">
-            <button onclick="spin3DSlot()" id="slotSpinBtn">スピン！</button>
-        </div>
-        <div id="slotResult" class="result-msg"></div>
-    </div>
-
-    <div id="highlowScreen" class="screen">
-        <button onclick="switchScreen('menuScreen')" style="float:left;">戻る</button>
-        <h2>3Dハイ＆ロー</h2>
-        
-        <div class="controls" id="hlBetControls">
-            ベット: <input type="number" id="hlBetAmount" value="100" min="1">
-            <button onclick="startHighLow()">ゲーム開始</button>
-        </div>
-        
-        <div id="hlGameArea" style="display: none;">
-            <div class="hl-board">
-                <div>
-                    <div class="hl-label">現在のカード</div>
-                    <div class="card-3d-container" id="hlCurrentCard"></div>
+        <div id="blackjackScreen" class="screen">
+            <button class="btn-back">戻る</button>
+            <div class="game-container">
+                <div id="bjBetControls" class="controls">
+                    <input type="number" id="bjBetAmount" value="100" min="1">
+                    <button id="btnBjStart">開始</button>
                 </div>
-                <div>
-                    <div class="hl-label">次のカード</div>
-                    <div class="card-3d-container" id="hlNextCard"></div>
+                <div id="bjGameArea" class="hidden">
+                    <div class="card-area-wrapper">
+                        <div id="dealerCards" class="card-area"></div>
+                        <div id="dealerScore" class="score-display">0</div>
+                    </div>
+                    <div class="card-area-wrapper">
+                        <div id="playerCards" class="card-area"></div>
+                        <div id="playerScore" class="score-display">0</div>
+                    </div>
+                    <div id="bjResult" class="result-msg"></div>
+                    <div id="bjActionControls" class="controls hidden">
+                        <button id="btnBjHit">ヒット</button>
+                        <button id="btnBjStand">スタンド</button>
+                    </div>
+                    <button id="btnBjNext" class="hidden">次へ</button>
                 </div>
             </div>
-            
-            <div id="hlResult" class="result-msg"></div>
-            
-            <div class="controls" id="hlActionControls">
-                <button onclick="guessHighLow('high')">ハイ (大きくなる)</button>
-                <button onclick="guessHighLow('low')">ロー (小さくなる)</button>
-            </div>
-            <button id="hlNextButton" onclick="resetHighLowUI()" style="display: none;">次の勝負へ</button>
         </div>
-    </div>
 
+        <div id="rouletteScreen" class="screen">
+            <button class="btn-back">戻る</button>
+            <div class="game-container">
+                <div class="roulette-wrapper">
+                    <div class="roulette-arrow"></div>
+                    <canvas id="rouletteCanvas" width="320" height="320"></canvas>
+                </div>
+                <div class="controls">
+                    <input type="number" id="rlBetAmount" value="100" min="1">
+                    <select id="rlBetType">
+                        <option value="red">赤</option>
+                        <option value="black">黒</option>
+                        <option value="even">偶数</option>
+                        <option value="odd">奇数</option>
+                        <option value="number">1点賭け</option>
+                    </select>
+                    <input type="number" id="rlTargetNumber" value="0" min="0" max="36" class="hidden">
+                    <button id="btnRlSpin">スピン</button>
+                </div>
+                <div id="rlResult" class="result-msg"></div>
+            </div>
+        </div>
+
+        <div id="slotScreen" class="screen">
+            <button class="btn-back">戻る</button>
+            <div class="game-container">
+                <div class="slot-machine-3d">
+                    <div class="reel-container"><div class="reel" id="reel0"></div></div>
+                    <div class="reel-container"><div class="reel" id="reel1"></div></div>
+                    <div class="reel-container"><div class="reel" id="reel2"></div></div>
+                </div>
+                <div class="controls">
+                    <input type="number" id="slotBetAmount" value="50" min="1">
+                    <button id="btnSlotSpin">スピン</button>
+                </div>
+                <div id="slotResult" class="result-msg"></div>
+            </div>
+        </div>
+
+        <div id="highlowScreen" class="screen">
+            <button class="btn-back">戻る</button>
+            <div class="game-container">
+                <div id="hlBetControls" class="controls">
+                    <input type="number" id="hlBetAmount" value="100" min="1">
+                    <button id="btnHlStart">開始</button>
+                </div>
+                <div id="hlGameArea" class="hidden">
+                    <div class="hl-board">
+                        <div class="card-3d-container" id="hlCurrentCard"></div>
+                        <div class="card-3d-container" id="hlNextCard"></div>
+                    </div>
+                    <div id="hlResult" class="result-msg"></div>
+                    <div id="hlActionControls" class="controls hidden">
+                        <button id="btnHlHigh">ハイ</button>
+                        <button id="btnHlLow">ロー</button>
+                    </div>
+                    <button id="btnHlNext" class="hidden">次へ</button>
+                </div>
+            </div>
+        </div>
+    </main>
 </div>
-
-<script>
-let money = 1000;
-const suits = ['♠', '♥', '♦', '♣'];
-const ranks = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
-const slotSymbols = ['🍒', '🍋', '🔔', '🍉', '💎', '7️⃣'];
-const numSymbols = slotSymbols.length;
-const anglePerSymbol = 360 / numSymbols;
-const radius = Math.round((80 / 2) / Math.tan(Math.PI / numSymbols)); 
-
-function updateMoney() {
-    document.getElementById('moneyDisplay').innerText = money;
-}
-
-function switchScreen(screenId) {
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    document.getElementById(screenId).classList.add('active');
-}
-
-function initReels() {
-    for(let i = 0; i < 3; i++) {
-        const reel = document.getElementById(`reel${i}`);
-        reel.innerHTML = '';
-        for(let j = 0; j < numSymbols; j++) {
-            const sym = document.createElement('div');
-            sym.className = 'symbol';
-            sym.innerText = slotSymbols[j];
-            sym.style.transform = `rotateX(${j * anglePerSymbol}deg) translateZ(${radius}px)`;
-            reel.appendChild(sym);
-        }
-    }
-}
-initReels();
-
-let currentAngles = [0, 0, 0];
-let isSpinning = false;
-
-function spin3DSlot() {
-    if(isSpinning) return;
-    const bet = parseInt(document.getElementById('slotBetAmount').value);
-    if(isNaN(bet) || bet <= 0 || bet > money) { alert('ベット額が無効です'); return; }
-    
-    money -= bet;
-    updateMoney();
-    isSpinning = true;
-    document.getElementById('slotSpinBtn').disabled = true;
-    document.getElementById('slotResult').innerText = '';
-
-    let results = [];
-    
-    for(let i = 0; i < 3; i++) {
-        const targetIndex = Math.floor(Math.random() * numSymbols);
-        results.push(slotSymbols[targetIndex]);
-        
-        const extraSpins = 4 + i * 2; 
-        const targetAngle = currentAngles[i] - (extraSpins * 360) - (targetIndex * anglePerSymbol) + (currentAngles[i] % 360);
-        
-        const reel = document.getElementById(`reel${i}`);
-        reel.style.transition = `transform ${2 + i * 0.8}s cubic-bezier(0.15, 0.95, 0.25, 1.08)`;
-        reel.style.transform = `rotateX(${targetAngle}deg)`;
-        currentAngles[i] = targetAngle;
-    }
-
-    setTimeout(() => {
-        let win = 0;
-        let msg = '';
-        if(results[0] === results[1] && results[1] === results[2]) {
-            win = results[0] === '7️⃣' ? bet * 50 : bet * 10;
-            msg = `ジャックポット！！ (+$${win})`;
-        } else if(results[0] === results[1] || results[1] === results[2] || results[0] === results[2]) {
-            win = bet * 2;
-            msg = `小当たり！ (+$${win})`;
-        } else {
-            msg = `ハズレ (-$${bet})`;
-        }
-        
-        money += win;
-        updateMoney();
-        document.getElementById('slotResult').innerText = msg;
-        isSpinning = false;
-        document.getElementById('slotSpinBtn').disabled = false;
-    }, 3800);
-}
-
-function getDeck() {
-    let d = [];
-    suits.forEach(s => ranks.forEach(r => d.push({s, r})));
-    for (let i = d.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [d[i], d[j]] = [d[j], d[i]];
-    }
-    return d;
-}
-
-function create3DCardHTML(c) {
-    const color = (c.s === '♥' || c.s === '♦') ? 'red' : 'black';
-    return `
-        <div class="card-3d">
-            <div class="card-face card-front ${color}">
-                <div class="card-top">${c.r}<br>${c.s}</div>
-                <div class="card-center">${c.s}</div>
-                <div class="card-bottom">${c.r}<br>${c.s}</div>
-            </div>
-            <div class="card-face card-back"></div>
-        </div>
-    `;
-}
-
-let hlDeck = [], hlCur = null, hlNext = null, hlBet = 0;
-
-function resetHighLowUI() {
-    document.getElementById('hlBetControls').style.display = 'block';
-    document.getElementById('hlGameArea').style.display = 'none';
-    document.getElementById('hlNextButton').style.display = 'none';
-    document.getElementById('hlResult').innerText = '';
-    document.getElementById('hlCurrentCard').innerHTML = '';
-    document.getElementById('hlNextCard').innerHTML = '';
-}
-
-function startHighLow() {
-    hlBet = parseInt(document.getElementById('hlBetAmount').value);
-    if(isNaN(hlBet) || hlBet <= 0 || hlBet > money) { alert('ベット額が無効です'); return; }
-    money -= hlBet; updateMoney();
-    hlDeck = getDeck();
-    hlCur = hlDeck.pop();
-    hlNext = hlDeck.pop();
-    
-    document.getElementById('hlBetControls').style.display = 'none';
-    document.getElementById('hlGameArea').style.display = 'block';
-    document.getElementById('hlActionControls').style.display = 'block';
-    
-    const curContainer = document.getElementById('hlCurrentCard');
-    const nextContainer = document.getElementById('hlNextCard');
-    
-    curContainer.innerHTML = create3DCardHTML(hlCur);
-    nextContainer.innerHTML = create3DCardHTML(hlNext);
-    
-    setTimeout(() => {
-        const curCard = curContainer.querySelector('.card-3d');
-        const nextCard = nextContainer.querySelector('.card-3d');
-        curCard.classList.add('dealt');
-        nextCard.classList.add('dealt');
-        
-        setTimeout(() => {
-            curCard.classList.add('flipped');
-        }, 300);
-    }, 50);
-}
-
-function getHlVal(r) {
-    if(r==='A') return 1; if(r==='J') return 11; if(r==='Q') return 12; if(r==='K') return 13; return parseInt(r);
-}
-
-function guessHighLow(guess) {
-    document.getElementById('hlActionControls').style.display = 'none';
-    
-    const nextCard = document.getElementById('hlNextCard').querySelector('.card-3d');
-    nextCard.classList.add('flipped');
-    
-    setTimeout(() => {
-        let v1 = getHlVal(hlCur.r), v2 = getHlVal(hlNext.r);
-        let m = document.getElementById('hlResult');
-        if(v1 === v2) { 
-            money += hlBet; 
-            m.innerText = `引き分け (+$0)`; 
-        } else if((guess==='high' && v2>v1) || (guess==='low' && v2<v1)) { 
-            money += hlBet*2; 
-            m.innerText = `見事正解！ (+$${hlBet*2})`; 
-        } else {
-            m.innerText = `残念、ハズレ... (-$${hlBet})`;
-        }
-        updateMoney();
-        document.getElementById('hlNextButton').style.display = 'inline-block';
-    }, 800);
-}
-</script>
+<script type="module" src="js/app.js"></script>
 </body>
 </html>
