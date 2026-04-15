@@ -4,6 +4,7 @@ import { Blackjack } from './games/Blackjack.js';
 import { Roulette } from './games/Roulette.js';
 import { SlotMachine } from './games/SlotMachine.js';
 import { HighLow } from './games/HighLow.js';
+import { Dice } from './games/Dice.js'; 
 
 class App {
     constructor() {
@@ -18,8 +19,14 @@ class App {
 
     initializeUI() {
         this.moneyDisplay = document.getElementById('moneyDisplay');
-        this.player.subscribe((money) => {
-            this.moneyDisplay.innerText = money;
+        this.levelDisplay = document.getElementById('levelDisplay'); 
+        this.rankDisplay = document.getElementById('rankDisplay');  
+        
+
+        this.player.subscribe((stats) => {
+            this.moneyDisplay.innerText = stats.money;
+            this.levelDisplay.innerText = stats.level;
+            this.rankDisplay.innerText = stats.rank;
         });
     }
 
@@ -28,11 +35,12 @@ class App {
         this.games.roulette = new Roulette(this.player);
         this.games.slot = new SlotMachine(this.player);
         this.games.highlow = new HighLow(this.player);
+        this.games.dice = new Dice(this.player); 
     }
 
     bindGlobalEvents() {
-        // Navigation bindings
-        const screens = ['menuScreen', 'blackjackScreen', 'rouletteScreen', 'slotScreen', 'highlowScreen'];
+
+        const screens = ['menuScreen', 'blackjackScreen', 'rouletteScreen', 'slotScreen', 'highlowScreen', 'diceScreen'];
         const switchScreen = (targetId) => {
             screens.forEach(id => document.getElementById(id).classList.remove('active'));
             document.getElementById(targetId).classList.add('active');
@@ -43,13 +51,14 @@ class App {
         document.getElementById('btnNavRoulette').addEventListener('click', () => switchScreen('rouletteScreen'));
         document.getElementById('btnNavSlot').addEventListener('click', () => switchScreen('slotScreen'));
         document.getElementById('btnNavHighLow').addEventListener('click', () => switchScreen('highlowScreen'));
+        document.getElementById('btnNavDice').addEventListener('click', () => switchScreen('diceScreen')); // 追加: ダイス画面への遷移
 
-        // Back buttons
+     
         document.querySelectorAll('.btn-back').forEach(btn => {
             btn.addEventListener('click', () => switchScreen('menuScreen'));
         });
 
-        // Save Data Management
+       
         document.getElementById('btnGenerateSave').addEventListener('click', () => {
             try {
                 const saveStr = this.player.generateSaveData();
@@ -77,7 +86,7 @@ class App {
     }
 }
 
-// ページの読み込み完了時にアプリケーションを起動
+
 document.addEventListener('DOMContentLoaded', () => {
     new App();
 });
