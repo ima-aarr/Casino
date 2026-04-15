@@ -1,0 +1,215 @@
+import json
+import base64
+import random
+
+
+def generate_save_code(data):
+    """データをJSON化し、Base64でエンコードしてパスワード文字列にする"""
+    json_str = json.dumps(data)
+    b64_bytes = base64.b64encode(json_str.encode("utf-8"))
+    return b64_bytes.decode("utf-8")
+
+def load_save_code(b64_str):
+    """Base64のパスワード文字列をデコードしてデータに戻す"""
+    try:
+        json_bytes = base64.b64decode(b64_str.encode("utf-8"))
+        json_str = json_bytes.decode("utf-8")
+        return json.loads(json_str)
+    except Exception:
+        return None
+
+def create_initial_data():
+    """新規プレイヤー用データ"""
+    return {
+        "money": 1000,
+        "stats": {"wins": 0, "losses": 0, "games_played": 0}
+    }
+
+
+SUITS = {'S': '♠', 'H': '♥', 'D': '♦', 'C': '♣'}
+RANKS = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']
+
+def draw_card():
+    suit = random.choice(list(SUITS.keys()))
+    rank = random.choice(RANKS)
+    
+    
+    if rank == 'A': value = 1
+    elif rank == 'J': value = 11
+    elif rank == 'Q': value = 12
+    elif rank == 'K': value = 13
+    else: value = int(rank)
+    
+    return suit, rank, value
+
+def print_card(suit_key, rank):
+    """トランプをアスキーアートでリアルに表示"""
+    suit = SUITS[suit_key]
+    r_top = rank.ljust(2)
+    r_bot = rank.rjust(2)
+    print(" ┌─────────┐")
+    print(f" │ {r_top}      │")
+    print(" │         │")
+    print(f" │    {suit}    │")
+    print(" │         │")
+    print(f" │      {r_bot} │")
+    print(" └─────────┘")
+
+
+def get_bet(data):
+    """プレイヤーからベット額を受け取る"""
+    while True:
+        try:
+            bet = int(input(f"▶ 現在の所持金: ${data['money']} \nいくらベットしますか？ (1〜{data['money']}): "))
+            if 1 <= bet <= data['money']:
+                return bet
+            print("❌ 所持金の範囲内で入力してください。")
+        except ValueError:
+            print("❌ 数値を入力してください。")
+
+def record_result(data, bet, is_win, multiplier=2):
+    """勝敗をデータに記録する"""
+    data['stats']['games_played'] += 1
+    if is_win:
+        win_amount = bet * multiplier
+        profit = win_amount - bet
+        data['money'] += profit
+        data['stats']['wins'] += 1
+        print(f"🎉 大当たり！ 倍率 {multiplier}倍で ${win_amount} になりました！ (利益: +${profit})")
+    else:
+        data['money'] -= bet
+        data['stats']['losses'] += 1
+        print(f"💀 残念... ${bet} を没収されました。")
+
+
+def play_high_low(data):
+    print("\n" + "="*30)
+    print("🎲 ハイ＆ローへようこそ！")
+    print("="*30)
+    bet = get_bet(data)
+    
+    s1, r1, v1 = draw_card()
+    s2, r2, v2 = draw_card()
+    
+    print("\n【あなたのカード】")
+    print_card(s1, r1)
+    
+    choice = input("\n次のカードはこれより [大きくなる:h] か [小さくなる:l] か？ (h/l): ").strip().lower()
+    
+    print("\n【次のカード】")
+    print_card(s2, r2)
+    
+    if v1 == v2:
+        print("🤝 引き分け！ ベット額はそのままです。")
+    elif (choice == 'h' and v2 > v1) or (choice == 'l' and v2 < v1):
+        record_result(data, bet, is_win=True, multiplier=2)
+    else:
+        record_result(data, bet, is_win=False)
+
+
+def play_roulette(data):
+    print("\n" + "="*30)
+    print("🎡 ルーレットへようこそ！")
+    print("="*30)
+    bet = get_bet(data)
+    
+    print("\n【チップを置く場所（賭け方）を選んでください】")
+    print(" 1: 🟥 赤に賭ける (配当 2倍)")
+    print(" 2: ⬛ 黒に賭ける (配当 2倍)")
+    print(" 3: 🔢 偶数[Even]に賭ける (配当 2倍)")
+    print(" 4: 🔢 奇数[Odd]に賭ける (配当 2倍)")
+    print(" 5: 🎯 数字1点賭け [0〜36] (配当 36倍)")
+    
+    choice = input("▶ 番号(1〜5)を選択: ").strip()
+    
+    target_number = -1
+    if choice == '5':
+        while True:
+            try:
+                target_number = int(input("▶ 賭ける数字(0〜36)を入力してください: "))
+                if 0 <= target_number <= 36:
+                    break
+                print("❌ 0〜36の範囲で入力してください。")
+            except ValueError:
+                print("❌ 数値を入力してください。")
+    
+    
+    print("\n... 🎡 ルーレットが回っています ... 🌀")
+    result_num = random.randint(0, 36)
+    
+  
+    red_numbers = [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36]
+    is_red = result_num in red_numbers
+    is_black = result_num != 0 and not is_red
+    color_str = "🟥 赤の" if is_red else "⬛ 黒の" if is_black else "🟩 緑の"
+    
+    print(f"\n🔔 結果は... 【 {color_str} {result_num} 】 です！\n")
+    
+    # 勝利判定
+    is_win = False
+    multiplier = 0
+    
+    if choice == '1' and is_red:
+        is_win, multiplier = True, 2
+    elif choice == '2' and is_black:
+        is_win, multiplier = True, 2
+    elif choice == '3' and result_num != 0 and result_num % 2 == 0:
+        is_win, multiplier = True, 2
+    elif choice == '4' and result_num != 0 and result_num % 2 != 0:
+        is_win, multiplier = True, 2
+    elif choice == '5' and result_num == target_number:
+        is_win, multiplier = True, 36
+        print("🎯 神業！ 1点賭けが見事的中しました！！！")
+
+    record_result(data, bet, is_win, multiplier)
+
+def main():
+    print("="*40)
+    print("🎰 ターミナルカジノ ver2.0 へようこそ！")
+    print("="*40)
+    
+    save_data = None
+    start_choice = input("続きから遊びますか？\n 1: 🆕 初めから\n 2: 💾 セーブコードを入力\n▶ 選択: ").strip()
+    
+    if start_choice == '2':
+        code = input("▶ セーブコード(Base64文字列)を貼り付けてください:\n")
+        save_data = load_save_code(code)
+        if save_data:
+            print("\n✅ データの復元に成功しました！ おかえりなさい！")
+        else:
+            print("\n❌ コードが不正です。新規データで開始します。")
+            
+    if not save_data:
+        save_data = create_initial_data()
+        
+    while True:
+        if save_data['money'] <= 0:
+            print("\n💸 破産しました... 完全に資金が尽きました。")
+            print("神の情けで $500 借金して復活します。")
+            save_data['money'] = 500
+            
+        print(f"\n--- 🏦 現在の所持金: ${save_data['money']} ---")
+        print(" 1: 🎲 ハイ＆ローで遊ぶ")
+        print(" 2: 🎡 ルーレットで遊ぶ")
+        print(" 3: 🚪 セーブコードを発行して終了")
+        
+        cmd = input("▶ 何をして遊びますか？: ").strip()
+        
+        if cmd == '1':
+            play_high_low(save_data)
+        elif cmd == '2':
+            play_roulette(save_data)
+        elif cmd == '3':
+            code = generate_save_code(save_data)
+            print("\n" + "="*40)
+            print("💾 セーブコード（次回この文字列をコピペしてください）")
+            print("="*40)
+            print(code)
+            print("="*40)
+            print("お疲れ様でした！またのご来店をお待ちしております！")
+            break
+        else:
+            print(" 正しい番号を入力してください。")
+
+if __name__ == "__main__":
+    main()
