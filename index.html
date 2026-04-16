@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>Web Casino Ultra Real - 6 Games</title>
+<title>Web Casino Ultra Real - 6 Games (Firebase Online)</title>
 <style>
 body { background-color: #082d18; color: #ffffff; font-family: sans-serif; text-align: center; margin: 0; padding: 15px; }
 .container { max-width: 900px; margin: 0 auto; background-color: #104225; padding: 20px; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); }
@@ -206,6 +206,29 @@ textarea { width: 90%; height: 40px; resize: vertical; }
     </div>
 
 </div>
+
+<script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-database-compat.js"></script>
+<script>
+  // あなたのFirebase設定
+  const firebaseConfig = {
+    apiKey: "AIzaSyDF9BvUB2BWldYkkNWpxWhQMWDLyVYDxkw",
+    authDomain: "casino-project-3ad35.firebaseapp.com",
+    projectId: "casino-project-3ad35",
+    storageBucket: "casino-project-3ad35.firebasestorage.app",
+    messagingSenderId: "167713304492",
+    appId: "1:167713304492:web:be732b900823a6c014d409",
+    measurementId: "G-6XNGGFPVC1"
+  };
+
+  // Firebaseを初期化
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.database();
+
+  // 接続テスト用（成功するとFirebaseコンソールに文字が入ります）
+  db.ref('test_room/message').set('オンラインカジノに接続成功！');
+</script>
+
 <script>
 let money = 1000;
 const suits = ['♠', '♥', '♦', '♣'];
