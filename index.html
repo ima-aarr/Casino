@@ -2,44 +2,55 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>Web Casino Ultra Real</title>
+<title>Web Casino Ultra Real - 6 Games</title>
 <style>
-body { background-color: #082d18; color: #ffffff; font-family: sans-serif; text-align: center; margin: 0; padding: 20px; }
+body { background-color: #082d18; color: #ffffff; font-family: sans-serif; text-align: center; margin: 0; padding: 15px; }
 .container { max-width: 900px; margin: 0 auto; background-color: #104225; padding: 20px; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); }
-button { padding: 12px 24px; margin: 5px; cursor: pointer; border-radius: 6px; border: none; background: linear-gradient(180deg, #f1c40f, #d4af37); color: #000; font-weight: bold; font-size: 16px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); transition: 0.2s; }
+button { padding: 10px 20px; margin: 5px; cursor: pointer; border-radius: 6px; border: none; background: linear-gradient(180deg, #f1c40f, #d4af37); color: #000; font-weight: bold; font-size: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); transition: 0.2s; }
 button:hover { background: linear-gradient(180deg, #f9e79f, #f1c40f); transform: translateY(-2px); }
 button:disabled { background: #555; color: #888; cursor: not-allowed; transform: translateY(0); box-shadow: none; }
-input, textarea { padding: 8px; margin: 5px; border-radius: 4px; border: 1px solid #222; font-size: 16px; background-color: #fff; color: #000; }
-textarea { width: 90%; height: 50px; resize: vertical; }
+input, select, textarea { padding: 8px; margin: 5px; border-radius: 4px; border: 1px solid #222; font-size: 15px; background-color: #fff; color: #000; }
+textarea { width: 90%; height: 40px; resize: vertical; }
 .screen { display: none; }
 .screen.active { display: block; }
-.header-info { font-size: 24px; font-weight: bold; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid #d4af37; }
-.controls { margin-top: 20px; padding: 15px; background: rgba(0,0,0,0.3); border-radius: 8px; }
-.result-msg { font-size: 22px; font-weight: bold; color: #f1c40f; margin: 20px 0; min-height: 30px; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); }
-.menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 30px; }
-.slot-machine-3d { display: flex; gap: 15px; justify-content: center; perspective: 1000px; background: linear-gradient(to bottom, #333, #111); padding: 40px 20px; border-radius: 15px; border: 8px solid #555; box-shadow: inset 0 20px 50px rgba(0,0,0,0.9), 0 10px 20px rgba(0,0,0,0.6); margin: 20px auto; width: fit-content; }
-.reel-container { width: 120px; height: 140px; position: relative; border-radius: 10px; border: 2px solid #000; background: #fff; box-shadow: inset 0 30px 30px -10px rgba(0,0,0,0.8), inset 0 -30px 30px -10px rgba(0,0,0,0.8); overflow: hidden; }
+.header-info { font-size: 22px; font-weight: bold; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid #d4af37; }
+.controls { margin-top: 15px; padding: 15px; background: rgba(0,0,0,0.3); border-radius: 8px; }
+.result-msg { font-size: 20px; font-weight: bold; color: #f1c40f; margin: 15px 0; min-height: 28px; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); }
+.menu-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+.menu-grid button { padding: 15px 5px; font-size: 14px; }
+
+/* Slot 3D */
+.slot-machine-3d { display: flex; gap: 15px; justify-content: center; perspective: 1000px; background: linear-gradient(to bottom, #333, #111); padding: 30px 15px; border-radius: 15px; border: 8px solid #555; box-shadow: inset 0 20px 50px rgba(0,0,0,0.9); margin: 15px auto; width: fit-content; }
+.reel-container { width: 100px; height: 120px; position: relative; border-radius: 10px; border: 2px solid #000; background: #fff; box-shadow: inset 0 30px 30px -10px rgba(0,0,0,0.8), inset 0 -30px 30px -10px rgba(0,0,0,0.8); overflow: hidden; }
 .reel { width: 100%; height: 100%; position: absolute; top: 0; left: 0; transform-style: preserve-3d; }
-.symbol { position: absolute; width: 100%; height: 80px; top: 30px; left: 0; display: flex; justify-content: center; align-items: center; font-size: 55px; background: linear-gradient(180deg, #ffffff, #e0e0e0); border-top: 1px solid #ccc; border-bottom: 1px solid #ccc; backface-visibility: hidden; }
-.board-3d { display: flex; justify-content: center; gap: 20px; margin: 30px 0; perspective: 1000px; min-height: 220px; flex-wrap: wrap; }
-.card-3d-container { width: 120px; height: 170px; position: relative; cursor: pointer; }
+.symbol { position: absolute; width: 100%; height: 70px; top: 25px; left: 0; display: flex; justify-content: center; align-items: center; font-size: 45px; background: linear-gradient(180deg, #ffffff, #e0e0e0); border-top: 1px solid #ccc; border-bottom: 1px solid #ccc; backface-visibility: hidden; }
+
+/* 3D Cards */
+.board-3d { display: flex; justify-content: center; gap: 15px; margin: 20px 0; perspective: 1000px; min-height: 160px; flex-wrap: wrap; }
+.card-3d-container { width: 100px; height: 145px; position: relative; cursor: pointer; }
 .card-3d { width: 100%; height: 100%; position: absolute; transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), top 0.3s; transform: rotateY(180deg) translateY(-50px); opacity: 0; top: 0; }
 .card-3d.dealt { transform: rotateY(180deg) translateY(0); opacity: 1; }
 .card-3d.flipped { transform: rotateY(0deg) translateY(0); opacity: 1; }
-.card-3d.held { top: -20px; box-shadow: 0 15px 25px rgba(241, 196, 15, 0.5); }
-.card-face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 8px; box-shadow: 2px 5px 10px rgba(0,0,0,0.5); display: flex; flex-direction: column; justify-content: space-between; padding: 5px; box-sizing: border-box; background-color: white; }
-.card-back { transform: rotateY(180deg); background: repeating-linear-gradient(45deg, #1a237e, #1a237e 10px, #283593 10px, #283593 20px); border: 6px solid white; }
+.card-3d.held { top: -15px; box-shadow: 0 15px 25px rgba(241, 196, 15, 0.5); }
+.card-face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 6px; box-shadow: 2px 5px 10px rgba(0,0,0,0.5); display: flex; flex-direction: column; justify-content: space-between; padding: 5px; box-sizing: border-box; background-color: white; }
+.card-back { transform: rotateY(180deg); background: repeating-linear-gradient(45deg, #1a237e, #1a237e 8px, #283593 8px, #283593 16px); border: 5px solid white; }
 .card-face.red { color: #d32f2f; }
 .card-face.black { color: #212121; }
-.card-top { text-align: left; font-size: 20px; line-height: 1; font-weight: bold; }
-.card-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 40px; }
-.card-bottom { text-align: right; font-size: 20px; line-height: 1; transform: rotate(180deg); font-weight: bold; }
-.area-label { font-size: 18px; margin-bottom: 10px; color: #d4af37; font-weight: bold; width: 100%; }
-.held-badge { position: absolute; bottom: -25px; left: 50%; transform: translateX(-50%); background: #f1c40f; color: #000; padding: 2px 8px; border-radius: 10px; font-size: 12px; font-weight: bold; display: none; }
+.card-top { text-align: left; font-size: 16px; line-height: 1; font-weight: bold; }
+.card-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 36px; }
+.card-bottom { text-align: right; font-size: 16px; line-height: 1; transform: rotate(180deg); font-weight: bold; }
+.area-label { font-size: 16px; margin-bottom: 5px; color: #d4af37; font-weight: bold; width: 100%; }
+.held-badge { position: absolute; bottom: -20px; left: 50%; transform: translateX(-50%); background: #f1c40f; color: #000; padding: 2px 6px; border-radius: 8px; font-size: 11px; font-weight: bold; display: none; }
 .card-3d.held .held-badge { display: block; }
-.poker-paytable { font-size: 14px; text-align: left; display: inline-block; background: rgba(0,0,0,0.5); padding: 10px; border-radius: 8px; margin-bottom: 15px; color: #ccc; }
-.poker-paytable span { display: inline-block; width: 120px; }
-.poker-paytable .highlight { color: #f1c40f; font-weight: bold; }
+.poker-paytable { font-size: 13px; text-align: left; display: inline-block; background: rgba(0,0,0,0.5); padding: 8px; border-radius: 8px; margin-bottom: 10px; color: #ccc; }
+.poker-paytable span { display: inline-block; width: 110px; }
+
+/* Roulette */
+.roulette-wrapper { position: relative; width: 300px; height: 300px; margin: 20px auto; }
+.roulette-arrow { position: absolute; top: -10px; left: 140px; border-left: 10px solid transparent; border-right: 10px solid transparent; border-top: 20px solid #ffeb3b; z-index: 10; filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.5)); }
+#rouletteCanvas { width: 300px; height: 300px; border-radius: 50%; box-shadow: 0 5px 15px rgba(0,0,0,0.8); }
+
+@media (max-width: 600px) { .menu-grid { grid-template-columns: 1fr 1fr; } }
 </style>
 </head>
 <body>
@@ -49,14 +60,16 @@ textarea { width: 90%; height: 50px; resize: vertical; }
 
     <div id="menuScreen" class="screen active">
         <div class="menu-grid">
-            <button onclick="switchScreen('slotScreen')">3D スロット</button>
-            <button onclick="switchScreen('highlowScreen')">3D ハイ＆ロー</button>
-            <button onclick="switchScreen('pokerScreen')">ビデオポーカー</button>
-            <button onclick="switchScreen('blackjackScreen')">3D ブラックジャック</button>
+            <button onclick="switchScreen('slotScreen')">🎰 3D スロット</button>
+            <button onclick="switchScreen('highlowScreen')">📈 3D ハイ＆ロー</button>
+            <button onclick="switchScreen('pokerScreen')">🃏 ビデオポーカー</button>
+            <button onclick="switchScreen('blackjackScreen')">♠ 3D ブラックジャック</button>
+            <button onclick="switchScreen('baccaratScreen')">👑 3D バカラ</button>
+            <button onclick="switchScreen('rouletteScreen')">🎡 ルーレット</button>
         </div>
-        <div style="border-top: 1px dashed #555; padding-top: 15px; margin-top: 20px;">
-            <button onclick="generateSaveData()">セーブコード発行</button><br>
-            <textarea id="saveDataInput" placeholder="セーブコードを入力"></textarea><br>
+        <div style="border-top: 1px dashed #555; padding-top: 15px; margin-top: 10px;">
+            <button onclick="generateSaveData()">セーブコード発行</button>
+            <input type="text" id="saveDataInput" placeholder="セーブコードを入力" style="width: 200px;">
             <button onclick="loadSaveData()">ロード</button>
         </div>
     </div>
@@ -85,13 +98,13 @@ textarea { width: 90%; height: 50px; resize: vertical; }
         </div>
         <div id="hlGameArea" style="display: none;">
             <div class="board-3d">
-                <div class="card-3d-container" id="hlCurrentCard"></div>
-                <div class="card-3d-container" id="hlNextCard"></div>
+                <div><div class="area-label">現在</div><div class="card-3d-container" id="hlCurrentCard"></div></div>
+                <div><div class="area-label">次</div><div class="card-3d-container" id="hlNextCard"></div></div>
             </div>
             <div id="hlResult" class="result-msg"></div>
             <div class="controls" id="hlActionControls">
-                <button onclick="guessHighLow('high')">ハイ</button>
-                <button onclick="guessHighLow('low')">ロー</button>
+                <button onclick="guessHighLow('high')">ハイ (High)</button>
+                <button onclick="guessHighLow('low')">ロー (Low)</button>
             </div>
             <button id="hlNextButton" onclick="resetHighLowUI()" style="display: none;">次へ</button>
         </div>
@@ -128,9 +141,9 @@ textarea { width: 90%; height: 50px; resize: vertical; }
         </div>
         <div id="bjGameArea" style="display: none;">
             <div class="area-label">ディーラー: <span id="bjDealerScore">?</span></div>
-            <div class="board-3d" id="bjDealerBoard" style="min-height: 180px;"></div>
+            <div class="board-3d" id="bjDealerBoard"></div>
             <div class="area-label">あなた: <span id="bjPlayerScore">0</span></div>
-            <div class="board-3d" id="bjPlayerBoard" style="min-height: 180px;"></div>
+            <div class="board-3d" id="bjPlayerBoard"></div>
             <div id="bjResult" class="result-msg"></div>
             <div class="controls" id="bjActionControls">
                 <button onclick="hitBlackjack()">ヒット</button>
@@ -139,8 +152,60 @@ textarea { width: 90%; height: 50px; resize: vertical; }
             <button id="bjNextButton" onclick="resetBlackjackUI()" style="display: none;">次へ</button>
         </div>
     </div>
-</div>
 
+    <div id="baccaratScreen" class="screen">
+        <button onclick="switchScreen('menuScreen')" style="float:left;">戻る</button>
+        <h2>3D バカラ</h2>
+        <div class="controls" id="bacBetControls">
+            ベット: <input type="number" id="bacBetAmount" value="100" min="1"><br>
+            賭け先: 
+            <select id="bacBetTarget">
+                <option value="player">プレイヤー (2倍)</option>
+                <option value="banker">バンカー (2倍)</option>
+                <option value="tie">タイ/引き分け (9倍)</option>
+            </select>
+            <button onclick="startBaccarat()">ディール</button>
+        </div>
+        <div id="bacGameArea" style="display: none;">
+            <div style="display:flex; justify-content:space-around;">
+                <div>
+                    <div class="area-label">PLAYER: <span id="bacPlayerScore">0</span></div>
+                    <div class="board-3d" id="bacPlayerBoard" style="gap:5px; min-height:150px;"></div>
+                </div>
+                <div>
+                    <div class="area-label">BANKER: <span id="bacBankerScore">0</span></div>
+                    <div class="board-3d" id="bacBankerBoard" style="gap:5px; min-height:150px;"></div>
+                </div>
+            </div>
+            <div id="bacResult" class="result-msg"></div>
+            <button id="bacNextButton" onclick="resetBaccaratUI()" style="display: none;">次へ</button>
+        </div>
+    </div>
+
+    <div id="rouletteScreen" class="screen">
+        <button onclick="switchScreen('menuScreen')" style="float:left;">戻る</button>
+        <h2>ルーレット</h2>
+        <div class="roulette-wrapper">
+            <div class="roulette-arrow"></div>
+            <canvas id="rouletteCanvas" width="300" height="300"></canvas>
+        </div>
+        <div class="controls" id="rlControls">
+            ベット: <input type="number" id="rlBetAmount" value="50" min="1"><br>
+            賭け方:
+            <select id="rlBetType" onchange="document.getElementById('rlTargetNum').style.display=this.value==='number'?'inline-block':'none'">
+                <option value="red">赤 (2倍)</option>
+                <option value="black">黒 (2倍)</option>
+                <option value="even">偶数 (2倍)</option>
+                <option value="odd">奇数 (2倍)</option>
+                <option value="number">1点賭け (36倍)</option>
+            </select>
+            <input type="number" id="rlTargetNum" value="0" min="0" max="36" style="display:none; width:50px;">
+            <button onclick="spinRoulette()" id="rlSpinBtn">スピン！</button>
+        </div>
+        <div id="rlResult" class="result-msg"></div>
+    </div>
+
+</div>
 <script>
 let money = 1000;
 const suits = ['♠', '♥', '♦', '♣'];
@@ -150,24 +215,21 @@ const slotSymbols = ['🍒', '🍋', '🔔', '🍉', '💎', '7️⃣'];
 function updateMoney() { document.getElementById('moneyDisplay').innerText = money; }
 function switchScreen(id) { document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); document.getElementById(id).classList.add('active'); }
 function generateSaveData() { document.getElementById('saveDataInput').value = btoa(JSON.stringify({ m: money })); }
-function loadSaveData() { try { let o = JSON.parse(atob(document.getElementById('saveDataInput').value)); if(o.m) { money = o.m; updateMoney(); alert('ロード成功'); } } catch(e) { alert('不正なデータ'); } }
+function loadSaveData() { try { let o = JSON.parse(atob(document.getElementById('saveDataInput').value)); if(o.m) { money = o.m; updateMoney(); alert('ロード成功'); } } catch(e) { alert('不正なデータです'); } }
 
+// カード関連共通処理
 function getDeck() {
     let d = []; suits.forEach(s => ranks.forEach(r => d.push({s, r})));
     for (let i = d.length - 1; i > 0; i--) { let j = Math.floor(Math.random() * (i + 1)); [d[i], d[j]] = [d[j], d[i]]; } return d;
 }
-
-function buildCardDOM(c, isHidden) {
-    let div = document.createElement('div');
-    div.className = 'card-3d-container';
+function buildCardDOM(c) {
+    let div = document.createElement('div'); div.className = 'card-3d-container';
     let color = (c.s === '♥' || c.s === '♦') ? 'red' : 'black';
     div.innerHTML = `<div class="card-3d"><div class="card-face card-front ${color}"><div class="card-top">${c.r}<br>${c.s}</div><div class="card-center">${c.s}</div><div class="card-bottom">${c.r}<br>${c.s}</div></div><div class="card-face card-back"></div><div class="held-badge">HELD</div></div>`;
     return div;
 }
-
 function animateDeal(container, cardObj, delay, isHidden, callback) {
-    let dom = buildCardDOM(cardObj, isHidden);
-    container.appendChild(dom);
+    let dom = buildCardDOM(cardObj); container.appendChild(dom);
     let inner = dom.querySelector('.card-3d');
     setTimeout(() => {
         inner.classList.add('dealt');
@@ -177,7 +239,8 @@ function animateDeal(container, cardObj, delay, isHidden, callback) {
     return dom;
 }
 
-const nSym = slotSymbols.length, ang = 360 / nSym, rad = Math.round(40 / Math.tan(Math.PI / nSym));
+// 🎰 Slot 3D
+const nSym = slotSymbols.length, ang = 360 / nSym, rad = Math.round(35 / Math.tan(Math.PI / nSym));
 function initReels() {
     for(let i=0; i<3; i++) {
         let r = document.getElementById(`reel${i}`); r.innerHTML = '';
@@ -188,14 +251,11 @@ function initReels() {
     }
 }
 initReels();
-
 let currAng = [0,0,0], isSpin = false;
 function spin3DSlot() {
-    if(isSpin) return;
-    let b = parseInt(document.getElementById('slotBetAmount').value);
+    if(isSpin) return; let b = parseInt(document.getElementById('slotBetAmount').value);
     if(isNaN(b) || b <= 0 || b > money) return alert('エラー');
-    money -= b; updateMoney(); isSpin = true;
-    document.getElementById('slotSpinBtn').disabled = true; document.getElementById('slotResult').innerText = '';
+    money -= b; updateMoney(); isSpin = true; document.getElementById('slotSpinBtn').disabled = true; document.getElementById('slotResult').innerText = '';
     let res = [];
     for(let i=0; i<3; i++) {
         let t = Math.floor(Math.random() * nSym); res.push(slotSymbols[t]);
@@ -214,11 +274,12 @@ function spin3DSlot() {
     }, 3800);
 }
 
+// 📈 High & Low
 let hlDeck=[], hlCur, hlNext, hlB=0;
 function resetHighLowUI() { document.getElementById('hlBetControls').style.display='block'; document.getElementById('hlGameArea').style.display='none'; document.getElementById('hlNextButton').style.display='none'; document.getElementById('hlResult').innerText=''; document.getElementById('hlCurrentCard').innerHTML=''; document.getElementById('hlNextCard').innerHTML=''; }
 function startHighLow() {
     hlB = parseInt(document.getElementById('hlBetAmount').value);
-    if(isNaN(hlB) || hlB<=0 || hlB>money) return alert('エラー');
+    if(isNaN(hlB) || hlB<=0 || hlB>money) return;
     money-=hlB; updateMoney(); hlDeck=getDeck(); hlCur=hlDeck.pop(); hlNext=hlDeck.pop();
     document.getElementById('hlBetControls').style.display='none'; document.getElementById('hlGameArea').style.display='block'; document.getElementById('hlActionControls').style.display='block';
     animateDeal(document.getElementById('hlCurrentCard'), hlCur, 50, false);
@@ -226,7 +287,7 @@ function startHighLow() {
 }
 function guessHighLow(g) {
     document.getElementById('hlActionControls').style.display='none';
-    let nc = document.getElementById('hlNextCard').querySelector('.card-3d'); nc.classList.add('flipped');
+    document.getElementById('hlNextCard').querySelector('.card-3d').classList.add('flipped');
     setTimeout(() => {
         let v1 = ranks.indexOf(hlCur.r), v2 = ranks.indexOf(hlNext.r);
         let r = document.getElementById('hlResult');
@@ -237,112 +298,196 @@ function guessHighLow(g) {
     }, 600);
 }
 
+// 🃏 Poker
 let pkDeck=[], pkHand=[], pkDoms=[], pkB=0;
 function resetPokerUI() { document.getElementById('pkBetControls').style.display='block'; document.getElementById('pkGameArea').style.display='none'; document.getElementById('pkNextButton').style.display='none'; document.getElementById('pkResult').innerText=''; document.getElementById('pkBoard').innerHTML=''; }
 function startPoker() {
-    pkB = parseInt(document.getElementById('pkBetAmount').value);
-    if(isNaN(pkB) || pkB<=0 || pkB>money) return alert('エラー');
+    pkB = parseInt(document.getElementById('pkBetAmount').value); if(isNaN(pkB) || pkB<=0 || pkB>money) return;
     money-=pkB; updateMoney(); pkDeck=getDeck(); pkHand=[]; pkDoms=[];
     document.getElementById('pkBetControls').style.display='none'; document.getElementById('pkGameArea').style.display='block'; document.getElementById('pkActionControls').style.display='block';
     for(let i=0; i<5; i++) {
         let c = pkDeck.pop(); pkHand.push(c);
         let d = animateDeal(document.getElementById('pkBoard'), c, i*150, false);
-        d.onclick = () => { let in3d = d.querySelector('.card-3d'); in3d.classList.toggle('held'); };
+        d.onclick = () => { d.querySelector('.card-3d').classList.toggle('held'); };
         pkDoms.push(d);
     }
 }
-function evalPoker() {
-    let rs = pkHand.map(c => ranks.indexOf(c.r)+2).sort((a,b)=>a-b);
-    let ss = pkHand.map(c => c.s);
-    let flush = ss.every(s => s===ss[0]);
-    let str = (rs[4]-rs[0]===4 && new Set(rs).size===5) || (rs[4]===14 && rs[0]===2 && rs[3]===5);
-    let counts = {}; rs.forEach(r => counts[r] = (counts[r]||0)+1);
-    let vals = Object.values(counts).sort((a,b)=>b-a);
-    let pairs = Object.keys(counts).filter(k => counts[k]===2).map(Number);
-    if(flush && str && rs[4]===14 && rs[0]===10) return {n:'ロイヤルフラッシュ', m:800};
-    if(flush && str) return {n:'ストレートフラッシュ', m:50};
-    if(vals[0]===4) return {n:'フォーカード', m:25};
-    if(vals[0]===3 && vals[1]===2) return {n:'フルハウス', m:9};
-    if(flush) return {n:'フラッシュ', m:6};
-    if(str) return {n:'ストレート', m:4};
-    if(vals[0]===3) return {n:'スリーカード', m:3};
-    if(vals[0]===2 && vals[1]===2) return {n:'ツーペア', m:2};
-    if(vals[0]===2 && Math.max(...pairs)>=11) return {n:'ジャックスオアベター', m:1};
-    return {n:'役なし', m:0};
-}
 function drawPoker() {
-    document.getElementById('pkActionControls').style.display='none';
-    let pms = [];
+    document.getElementById('pkActionControls').style.display='none'; let pms = [];
     pkDoms.forEach((d, i) => {
         let in3d = d.querySelector('.card-3d');
         if(!in3d.classList.contains('held')) {
             in3d.classList.remove('flipped');
-            pms.push(new Promise(res => {
-                setTimeout(() => {
-                    d.remove();
-                    let nc = pkDeck.pop(); pkHand[i] = nc;
-                    let nd = buildCardDOM(nc, false);
-                    let nin = nd.querySelector('.card-3d');
-                    document.getElementById('pkBoard').insertBefore(nd, document.getElementById('pkBoard').children[i]);
-                    setTimeout(() => { nin.classList.add('dealt'); setTimeout(() => { nin.classList.add('flipped'); res(); }, 300); }, 50);
-                }, 300);
-            }));
+            pms.push(new Promise(res => { setTimeout(() => {
+                d.remove(); let nc = pkDeck.pop(); pkHand[i] = nc; let nd = buildCardDOM(nc); let nin = nd.querySelector('.card-3d');
+                document.getElementById('pkBoard').insertBefore(nd, document.getElementById('pkBoard').children[i]);
+                setTimeout(() => { nin.classList.add('dealt'); setTimeout(() => { nin.classList.add('flipped'); res(); }, 300); }, 50);
+            }, 300); }));
         }
     });
-    Promise.all(pms).then(() => {
-        setTimeout(() => {
-            let res = evalPoker();
-            let w = pkB * res.m;
-            let m = document.getElementById('pkResult');
-            if(w>0) { money+=w; m.innerText=`${res.n}! (+$${w})`; } else { m.innerText=`ハズレ (-$${pkB})`; }
-            updateMoney(); document.getElementById('pkNextButton').style.display='inline-block';
-            pkDoms.forEach(d => d.onclick=null);
-        }, 500);
-    });
+    Promise.all(pms).then(() => { setTimeout(() => {
+        let rs = pkHand.map(c=>ranks.indexOf(c.r)+2).sort((a,b)=>a-b), ss = pkHand.map(c=>c.s);
+        let fl = ss.every(s=>s===ss[0]), str = (rs[4]-rs[0]===4 && new Set(rs).size===5) || (rs[4]===14&&rs[0]===2&&rs[3]===5);
+        let cts = {}; rs.forEach(r=>cts[r]=(cts[r]||0)+1); let vals=Object.values(cts).sort((a,b)=>b-a);
+        let p = Object.keys(cts).filter(k=>cts[k]===2).map(Number);
+        let mul=0, n='役なし';
+        if(fl&&str&&rs[4]===14&&rs[0]===10){n='ロイヤル';mul=800;}else if(fl&&str){n='ストフラ';mul=50;}
+        else if(vals[0]===4){n='フォーカード';mul=25;}else if(vals[0]===3&&vals[1]===2){n='フルハウス';mul=9;}
+        else if(fl){n='フラッシュ';mul=6;}else if(str){n='ストレート';mul=4;}
+        else if(vals[0]===3){n='スリーカード';mul=3;}else if(vals[0]===2&&vals[1]===2){n='ツーペア';mul=2;}
+        else if(vals[0]===2&&Math.max(...p)>=11){n='ジャックスオアベター';mul=1;}
+        let w=pkB*mul, m=document.getElementById('pkResult');
+        if(w>0){ money+=w; m.innerText=`${n}! (+$${w})`; } else m.innerText=`ハズレ (-$${pkB})`;
+        updateMoney(); document.getElementById('pkNextButton').style.display='inline-block'; pkDoms.forEach(d=>d.onclick=null);
+    }, 500); });
 }
 
-let bjDeck=[], pHand=[], dHand=[], bjB=0, bjOver=false;
+// ♠ Blackjack
+let bjDeck=[], bjP=[], bjD=[], bjB=0, bjOver=false;
 function getBjVal(h) { let s=0, a=0; h.forEach(c=>{let v=ranks.indexOf(c.r)+1; if(v>10)v=10; if(v===1){v=11;a++;} s+=v;}); while(s>21&&a>0){s-=10;a--;} return s; }
 function resetBlackjackUI() { document.getElementById('bjBetControls').style.display='block'; document.getElementById('bjGameArea').style.display='none'; document.getElementById('bjNextButton').style.display='none'; document.getElementById('bjResult').innerText=''; document.getElementById('bjPlayerBoard').innerHTML=''; document.getElementById('bjDealerBoard').innerHTML=''; document.getElementById('bjPlayerScore').innerText='0'; document.getElementById('bjDealerScore').innerText='?'; }
 function startBlackjack() {
-    bjB = parseInt(document.getElementById('bjBetAmount').value);
-    if(isNaN(bjB) || bjB<=0 || bjB>money) return alert('エラー');
-    money-=bjB; updateMoney(); bjDeck=getDeck(); pHand=[]; dHand=[]; bjOver=false;
+    bjB = parseInt(document.getElementById('bjBetAmount').value); if(isNaN(bjB) || bjB<=0 || bjB>money) return;
+    money-=bjB; updateMoney(); bjDeck=getDeck(); bjP=[]; bjD=[]; bjOver=false;
     document.getElementById('bjBetControls').style.display='none'; document.getElementById('bjGameArea').style.display='block'; document.getElementById('bjActionControls').style.display='block';
-    pHand.push(bjDeck.pop()); pHand.push(bjDeck.pop()); dHand.push(bjDeck.pop()); dHand.push(bjDeck.pop());
-    animateDeal(document.getElementById('bjPlayerBoard'), pHand[0], 0, false);
-    animateDeal(document.getElementById('bjPlayerBoard'), pHand[1], 200, false, () => document.getElementById('bjPlayerScore').innerText=getBjVal(pHand));
-    animateDeal(document.getElementById('bjDealerBoard'), dHand[0], 400, false);
-    animateDeal(document.getElementById('bjDealerBoard'), dHand[1], 600, true);
-    setTimeout(()=>{ if(getBjVal(pHand)===21) standBlackjack(); }, 1200);
+    bjP.push(bjDeck.pop()); bjP.push(bjDeck.pop()); bjD.push(bjDeck.pop()); bjD.push(bjDeck.pop());
+    animateDeal(document.getElementById('bjPlayerBoard'), bjP[0], 0, false); animateDeal(document.getElementById('bjPlayerBoard'), bjP[1], 200, false, ()=>document.getElementById('bjPlayerScore').innerText=getBjVal(bjP));
+    animateDeal(document.getElementById('bjDealerBoard'), bjD[0], 400, false); animateDeal(document.getElementById('bjDealerBoard'), bjD[1], 600, true);
+    setTimeout(()=>{ if(getBjVal(bjP)===21) standBlackjack(); }, 1200);
 }
 function hitBlackjack() {
-    if(bjOver) return; let c=bjDeck.pop(); pHand.push(c);
-    animateDeal(document.getElementById('bjPlayerBoard'), c, 0, false, () => {
-        let s=getBjVal(pHand); document.getElementById('bjPlayerScore').innerText=s;
-        if(s>21) standBlackjack();
-    });
+    if(bjOver) return; let c=bjDeck.pop(); bjP.push(c);
+    animateDeal(document.getElementById('bjPlayerBoard'), c, 0, false, () => { let s=getBjVal(bjP); document.getElementById('bjPlayerScore').innerText=s; if(s>21) standBlackjack(); });
 }
 function standBlackjack() {
     if(bjOver) return; bjOver=true; document.getElementById('bjActionControls').style.display='none';
-    let dc = document.getElementById('bjDealerBoard').children[1].querySelector('.card-3d'); dc.classList.add('flipped');
-    let ps=getBjVal(pHand);
+    document.getElementById('bjDealerBoard').children[1].querySelector('.card-3d').classList.add('flipped');
+    let ps=getBjVal(bjP);
     let runD = () => {
-        let ds = getBjVal(dHand); document.getElementById('bjDealerScore').innerText=ds;
-        if(ps<=21 && ds<17) {
-            let c=bjDeck.pop(); dHand.push(c);
-            animateDeal(document.getElementById('bjDealerBoard'), c, 200, false, runD);
-        } else {
+        let ds = getBjVal(bjD); document.getElementById('bjDealerScore').innerText=ds;
+        if(ps<=21 && ds<17) { let c=bjDeck.pop(); bjD.push(c); animateDeal(document.getElementById('bjDealerBoard'), c, 200, false, runD); }
+        else {
             let m=document.getElementById('bjResult');
-            if(ps>21) m.innerText=`バスト (-$${bjB})`;
-            else if(ds>21){ money+=bjB*2; m.innerText=`ディーラーバスト! (+$${bjB*2})`; }
-            else if(ps>ds){ let w=(ps===21&&pHand.length===2)?Math.floor(bjB*2.5):bjB*2; money+=w; m.innerText=`勝ち! (+$${w})`; }
-            else if(ps<ds) m.innerText=`負け (-$${bjB})`;
-            else { money+=bjB; m.innerText='引き分け'; }
+            if(ps>21) m.innerText=`バスト (-$${bjB})`; else if(ds>21){ money+=bjB*2; m.innerText=`ディーラーバスト! (+$${bjB*2})`; }
+            else if(ps>ds){ let w=(ps===21&&bjP.length===2)?Math.floor(bjB*2.5):bjB*2; money+=w; m.innerText=`勝ち! (+$${w})`; }
+            else if(ps<ds) m.innerText=`負け (-$${bjB})`; else { money+=bjB; m.innerText='引き分け'; }
             updateMoney(); document.getElementById('bjNextButton').style.display='inline-block';
         }
-    };
-    setTimeout(runD, 800);
+    }; setTimeout(runD, 800);
+}
+
+// 👑 Baccarat
+let bacDeck=[], bacP=[], bacD=[], bacB=0, bacT='';
+function getBacVal(h) { return h.reduce((s,c) => { let v=ranks.indexOf(c.r)+1; return s+(v>=10?0:v); }, 0) % 10; }
+function resetBaccaratUI() { document.getElementById('bacBetControls').style.display='block'; document.getElementById('bacGameArea').style.display='none'; document.getElementById('bacNextButton').style.display='none'; document.getElementById('bacResult').innerText=''; document.getElementById('bacPlayerBoard').innerHTML=''; document.getElementById('bacBankerBoard').innerHTML=''; document.getElementById('bacPlayerScore').innerText='0'; document.getElementById('bacBankerScore').innerText='0'; }
+function startBaccarat() {
+    bacB = parseInt(document.getElementById('bacBetAmount').value); bacT = document.getElementById('bacBetTarget').value;
+    if(isNaN(bacB) || bacB<=0 || bacB>money) return alert('エラー');
+    money-=bacB; updateMoney(); bacDeck=getDeck(); bacP=[]; bacD=[];
+    document.getElementById('bacBetControls').style.display='none'; document.getElementById('bacGameArea').style.display='block';
+    
+    // Deal initial 2 cards
+    bacP.push(bacDeck.pop()); bacD.push(bacDeck.pop()); bacP.push(bacDeck.pop()); bacD.push(bacDeck.pop());
+    animateDeal(document.getElementById('bacPlayerBoard'), bacP[0], 0, false);
+    animateDeal(document.getElementById('bacBankerBoard'), bacD[0], 200, false);
+    animateDeal(document.getElementById('bacPlayerBoard'), bacP[1], 400, false, () => document.getElementById('bacPlayerScore').innerText = getBacVal(bacP));
+    animateDeal(document.getElementById('bacBankerBoard'), bacD[1], 600, false, () => {
+        document.getElementById('bacBankerScore').innerText = getBacVal(bacD);
+        setTimeout(checkBaccaratThirdCard, 800);
+    });
+}
+function checkBaccaratThirdCard() {
+    let ps = getBacVal(bacP), ds = getBacVal(bacD);
+    if(ps >= 8 || ds >= 8) return finishBaccarat(); // Natural
+    
+    if(ps <= 5) {
+        let c = bacDeck.pop(); bacP.push(c);
+        animateDeal(document.getElementById('bacPlayerBoard'), c, 0, false, () => {
+            document.getElementById('bacPlayerScore').innerText = getBacVal(bacP);
+            // Simplified Banker draw logic for space (draws if <=5)
+            if(ds <= 5) {
+                let dc = bacDeck.pop(); bacD.push(dc);
+                animateDeal(document.getElementById('bacBankerBoard'), dc, 400, false, () => {
+                    document.getElementById('bacBankerScore').innerText = getBacVal(bacD);
+                    finishBaccarat();
+                });
+            } else finishBaccarat();
+        });
+    } else {
+        if(ds <= 5) {
+            let dc = bacDeck.pop(); bacD.push(dc);
+            animateDeal(document.getElementById('bacBankerBoard'), dc, 0, false, () => {
+                document.getElementById('bacBankerScore').innerText = getBacVal(bacD);
+                finishBaccarat();
+            });
+        } else finishBaccarat();
+    }
+}
+function finishBaccarat() {
+    let ps = getBacVal(bacP), ds = getBacVal(bacD), win = 0, m = document.getElementById('bacResult');
+    let res = ps > ds ? 'player' : (ds > ps ? 'banker' : 'tie');
+    
+    if(res === bacT) {
+        win = bacT === 'tie' ? bacB * 9 : bacB * 2;
+        money += win; m.innerText = `正解！ ${res.toUpperCase()} の勝ち (+$${win})`;
+    } else if (res === 'tie' && bacT !== 'tie') {
+        money += bacB; m.innerText = `タイ (引き分け) - ベット額返還`; // Push
+    } else {
+        m.innerText = `ハズレ... ${res.toUpperCase()} の勝ち (-$${bacB})`;
+    }
+    updateMoney(); document.getElementById('bacNextButton').style.display='inline-block';
+}
+
+// 🎡 Roulette (Canvas Physics)
+const rlNums = [0,32,15,19,4,21,2,25,17,34,6,27,13,36,11,30,8,23,10,5,24,16,33,1,20,14,31,9,22,18,29,7,28,12,35,3,26];
+const rlRed = [1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36];
+const ctx = document.getElementById('rouletteCanvas').getContext('2d');
+let rlAng = 0, rlSpin = false;
+
+function drawRoulette(angOffset) {
+    ctx.clearRect(0,0,300,300); ctx.save(); ctx.translate(150,150); ctx.rotate(angOffset);
+    let a = Math.PI*2/37;
+    for(let i=0; i<37; i++) {
+        let n=rlNums[i]; ctx.beginPath(); ctx.moveTo(0,0); ctx.arc(0,0,150,i*a,(i+1)*a);
+        ctx.fillStyle = n===0?'#2e7d32':(rlRed.includes(n)?'#c62828':'#212121'); ctx.fill();
+        ctx.save(); ctx.rotate(i*a+a/2); ctx.textAlign="right"; ctx.fillStyle="#fff"; ctx.font="bold 13px sans-serif"; ctx.fillText(n,140,5); ctx.restore();
+    }
+    ctx.beginPath(); ctx.arc(0,0,90,0,Math.PI*2); ctx.fillStyle="#d4af37"; ctx.lineWidth=3; ctx.stroke(); ctx.fillStyle="#111"; ctx.fill();
+    ctx.restore();
+}
+drawRoulette(0);
+
+function spinRoulette() {
+    if(rlSpin) return;
+    let b = parseInt(document.getElementById('rlBetAmount').value), t = document.getElementById('rlBetType').value, tn = parseInt(document.getElementById('rlTargetNum').value);
+    if(isNaN(b)||b<=0||b>money||(t==='number'&&(isNaN(tn)||tn<0||tn>36))) return alert('エラー');
+    money-=b; updateMoney(); rlSpin=true; document.getElementById('rlSpinBtn').disabled=true; document.getElementById('rlResult').innerText='';
+    
+    let resIdx = Math.floor(Math.random()*37), resN = rlNums[resIdx], a = Math.PI*2/37;
+    let targetA = -Math.PI/2 - (resIdx*a + a/2);
+    let totalRot = rlAng + (Math.PI*2*15) + ((targetA - rlAng)%(Math.PI*2)) + (Math.PI*2);
+    let st = performance.now();
+    
+    function anim(time) {
+        let p = Math.min((time-st)/5000, 1);
+        let ease = 1 - Math.pow(1 - p, 4); // Quartic ease out
+        rlAng = rlAng + (totalRot - rlAng) * ease;
+        drawRoulette(rlAng);
+        if(p<1) requestAnimationFrame(anim);
+        else {
+            rlSpin=false; document.getElementById('rlSpinBtn').disabled=false;
+            let isR=rlRed.includes(resN), isB=resN!==0&&!isR, isE=resN!==0&&resN%2===0, isO=resN!==0&&resN%2!==0;
+            let w=0;
+            if((t==='red'&&isR)||(t==='black'&&isB)||(t==='even'&&isE)||(t==='odd'&&isO)) w=b*2;
+            if(t==='number'&&resN===tn) w=b*36;
+            let cStr = resN===0?"緑":(isR?"赤":"黒");
+            let m = document.getElementById('rlResult');
+            if(w>0){ money+=w; m.innerText=`結果: ${cStr}の${resN}。当たり!(+$${w})`; }
+            else m.innerText=`結果: ${cStr}の${resN}。ハズレ(-$${b})`;
+            updateMoney();
+        }
+    }
+    requestAnimationFrame(anim);
 }
 </script>
 </body>
